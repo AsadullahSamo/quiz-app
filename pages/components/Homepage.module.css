@@ -1,0 +1,17 @@
+@font-face {
+    font-family: Nunito-Bold;
+    src: url('../../public/assets/fonts/Nunito-Bold.ttf');
+}
+
+@font-face {
+    font-family: Nunito-Semibold;
+    src: url('../../public/assets/fonts/Nunito-SemiBold.ttf');
+}
+
+.nunitoBold {
+    font-family: Nunito-Bold;
+}
+
+.nunitoSemiBold {
+    font-family: Nunito-Semibold;
+}
