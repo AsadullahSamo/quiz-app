@@ -4,10 +4,9 @@ import { useRef, useState } from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import fonts from '../components/Fonts.module.css'
-export default function ResultsBar() {
+export default function ResultsBar({correctAns}) {
   
   const divRef = useRef(null)
-  const [divHeight, setDivHeight] = useState(0)
 
   return (
 
@@ -16,8 +15,8 @@ export default function ResultsBar() {
         <div style={{ width: 150, height: 150, color: 'red', margin: '25px'}}>
 
             <CircularProgressbar
-            value={60}
-            text={`${60}/10`}
+            value={correctAns * 10}
+            text={`${correctAns}/10`}
             styles={{
                 path: {
                 	stroke: `#8394ed`,
@@ -38,7 +37,7 @@ export default function ResultsBar() {
             }}/>
         </div>
 
-				<p className={`${fonts.nunitoBold} mt-10 text-xl w-48`}> You answered {8} out of 10 questions correctly!</p>
+				<p className={`${fonts.nunitoBold} mt-10 text-xl w-48`}> You answered {correctAns}/10 questions correctly!</p>
 
     </div>
 
