@@ -70,8 +70,6 @@ export default function Quiz() {
 
     }
 
-
-
     const showNextQuestion = () => {
       if(index === 9) {
         setIndex(0)
