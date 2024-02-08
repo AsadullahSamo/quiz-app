@@ -1,34 +1,46 @@
 import React from 'react'
 import { useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 // import styles from './ResultsBar.module.css'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import fonts from '../components/Fonts.module.css'
-export default function ResultsBar({correctAns}) {
+import Answers from './Answers'
+export default function ResultsBar() {
   
   const divRef = useRef(null)
+  const router = useRouter()
+  const correctAnsCount = router.query.correctAnsCount
+  const correctAns = JSON.parse(localStorage.getItem('correctAns'))
+  const wrongAns = JSON.parse(localStorage.getItem('wrongAns'))
+  const questions = JSON.parse(localStorage.getItem('questionsArray'))
+  const guessed = JSON.parse(localStorage.getItem('guessed'))
+  
+  console.log(questions)
+  console.log(correctAns)
+  console.log(wrongAns)
+  console.log(guessed)
 
   return (
-
-    <div ref={divRef} className='bg-[#4a4fad] w-[50%] h-48 flex gap-4'>
-        
+    <div className='flex flex-col items-center'>
+      <div ref={divRef} className='bg-[#4a4fad] w-[50%] h-48 flex gap-4 mt-10'>
         <div style={{ width: 150, height: 150, color: 'red', margin: '25px'}}>
 
             <CircularProgressbar
-            value={correctAns * 10}
-            text={`${correctAns}/10`}
+            value={correctAnsCount * 10}
+            text={`${correctAnsCount}/10`}
             styles={{
                 path: {
-                	stroke: `#8394ed`,
+                  stroke: `#8394ed`,
                 },
                 
                 trail: {
-                	stroke: '#3b179b',
+                  stroke: '#3b179b',
                 },
 
                 text: {
-									fill: '#fff',
-									fontSize: '18px',
+                  fill: '#fff',
+                  fontSize: '18px',
                 },
                 // Customize background - only used when the `background` prop is true
                 background: {
@@ -37,8 +49,10 @@ export default function ResultsBar({correctAns}) {
             }}/>
         </div>
 
-				<p className={`${fonts.nunitoBold} mt-10 text-xl w-48`}> You answered {correctAns}/10 questions correctly!</p>
+        <p className={`${fonts.nunitoBold} mt-10 text-xl w-48`}> You answered {correctAnsCount}/10 questions correctly!</p>
+      </div>
 
+        <Answers />
     </div>
 
   )

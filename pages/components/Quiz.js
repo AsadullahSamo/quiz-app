@@ -1,10 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styles from '../components/Fonts.module.css'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 export default function Quiz() {
 
     const divRef = useRef(null)
+    const [correctAns, setCorrectAns] = useState([])
+    const [questionsArray, setQuestionsArray] = useState([])
+    const [wrongAns, setWrongAns] = useState([])
+    const [guessed, setGuessed] = useState([])     // Answers that user provided
+    const [correctAnsCount, setCorrectAnsCount] = useState(0)
     const [divHeight, setDivHeight] = useState(0)
     const [randArray, setRandArray] = useState([])
     const [questions, setQuestions] = useState([])
@@ -12,7 +18,7 @@ export default function Quiz() {
     const [correctAnswerColor, setCorrectAnswerColor] = useState('bg-transparent')
     const [wrongAnswerColor, setWrongAnswerColor] = useState('bg-transparent')
     const [answerIcon, setAnswerIcon] = useState(false)
-
+    const router = useRouter()
     
     useEffect(() => {
       const fetchData = async () => {
@@ -65,37 +71,53 @@ export default function Quiz() {
         array[y] = temp;
       }
 
-      console.log(array)
+      // console.log(array)
       return array;
 
     }
 
     const showNextQuestion = () => {
       if(index === 9) {
-        setIndex(0)
+        router.push({
+          pathname: '/components/ResultsBar',
+          query: { correctAnsCount }
+        });
+        localStorage.setItem('correctAns', JSON.stringify(correctAns))
+        localStorage.setItem('wrongAns', JSON.stringify(wrongAns))
+        localStorage.setItem('questionsArray', JSON.stringify(questionsArray))
+        localStorage.setItem('guessed', JSON.stringify(guessed))
       } else {
-        setIndex(index => index + 1)
+        setIndex(prevIndex => prevIndex + 1);
       }
-      setAnswerIcon(false)
-      setCorrectAnswerColor('bg-transparent')
-      setWrongAnswerColor('bg-transparent')
-
+      setAnswerIcon(false);
+      setCorrectAnswerColor('bg-transparent');
+      setWrongAnswerColor('bg-transparent');
     } // end of showNextQuestion
 
     const handleClick = (e) => {
+      if(e.target.value === questions[index].correct_answer) {
+        setCorrectAnsCount(correctAnsCount => correctAnsCount + 1)
+        setCorrectAns([...correctAns, questions[index].correct_answer])
+        setGuessed([...guessed, true])
+      } else {
+        setWrongAns([...wrongAns, e.target.value])
+        setCorrectAns([...correctAns, questions[index].correct_answer])
+        setGuessed([...guessed, false])
+      }
+
+      setQuestionsArray([...questionsArray, questions[index].question])
       setAnswerIcon(true)
       setCorrectAnswerColor('bg-[#45c54f]')
       setWrongAnswerColor('bg-[#e33f3f]')
     }
 
   return (
-
-    <div ref={divRef} className={`bg-[#4a4fad] w-[50%] h-[${divHeight}px]`}>
-
-        <p className={`${styles.nunitoSemiBold} px-10 pt-10`}> QUESTION {index + 1} of 10 </p>
-        {questions && questions.length > 0 && (
-          <p className={`px-10 pt-5 mb-12 text-xl ${styles.nunitoBold} w-[90%]`} key={0}> {questions[index].question} </p>
-        )}
+  
+    <div ref={divRef} className={`bg-[#4a4fad] w-[50%] h-[${divHeight}px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}>
+      <p className={`${styles.nunitoSemiBold} px-10 pt-10`}> QUESTION {index + 1} of 10 </p>
+      {questions && questions.length > 0 && (
+        <p className={`px-10 pt-5 mb-12 text-xl ${styles.nunitoBold} w-[90%]`} key={0}> {questions[index].question} </p>
+      )}
 
       {questions && questions.length > 0 && (
         randArray.map((option, mapIndex) => {
@@ -115,65 +137,7 @@ export default function Quiz() {
         })
       )}
 
-{/*       
-      {index===0 && questions && questions.length > 0 && (
-        <div className='flex'>
-        <input onClick={handleClick} className={`text-left hover:cursor-pointer transition-all duration-500 hover:bg-[#989ce3] ${correctAnswerColor} text-[17px] border-solid border-white border text-white font-semibold px-5 py-4 mx-10 mb-5 rounded-md w-[90%]`} type='submit' value={`${questions[index].correct_answer}`}/> 
-        {
-          answerIcon && (
-          <Image
-            className='float-right -ml-24 mb-5' src="/assets/icons/correct-answer-icon.svg" alt="Picture of the author" width={30} height={30}
-          />
-          )
-        }
-        </div>
-      )}
-
-      { questions && questions.length > 0 && (
-        <div className='flex'>
-          <input onClick={handleClick} className={`text-left hover:cursor-pointer transition-all duration-500 hover:bg-[#989ce3] ${wrongAnswerColor} text-[17px] border-solid border-white border text-white font-semibold px-5 py-4 mx-10 mb-5 rounded-md w-[90%]`} type='submit' value={`${questions[index].incorrect_answers[0]}`}/>
-          {
-            answerIcon && (
-            <Image
-              className='float-right -ml-24 mb-5' src="/assets/icons/correct-answer-icon.svg" alt="Picture of the author" width={30} height={30}
-            /> 
-            )
-          }
-           
-        </div>
-      )}
-
-      { questions && questions.length > 0 && (
-        <div className='flex'>
-          <input onClick={handleClick} className={`text-left hover:cursor-pointer transition-all duration-500 hover:bg-[#989ce3] ${wrongAnswerColor} text-[17px] border-solid border-white border text-white font-semibold px-5 py-4 mx-10 mb-5 rounded-md w-[90%]`} type='submit' value={`${questions[index].incorrect_answers[1]}`}/>
-          {
-            answerIcon && (
-            <Image
-              className='float-right -ml-24 mb-5' src="/assets/icons/correct-answer-icon.svg" alt="Picture of the author" width={30} height={30}
-            /> 
-            )
-          }
-           
-        </div>
-      )}
-
-      { questions && questions.length > 0 && (
-        <div className='flex'>
-          <input onClick={handleClick} className={`text-left hover:cursor-pointer transition-all duration-500 hover:bg-[#989ce3] ${wrongAnswerColor} text-[17px] border-solid border-white border text-white font-semibold px-5 py-4 mx-10 mb-5 rounded-md w-[90%]`} type='submit' value={`${questions[index].incorrect_answers[2]}`}/>
-          {
-            answerIcon && (
-            <Image
-              className='float-right -ml-24 mb-5' src="/assets/icons/correct-answer-icon.svg" alt="Picture of the author" width={30} height={30}
-            /> 
-            )
-          }
-           
-        </div>
-      )} */}
-
-       <button className={`mt-3 mb-5 mx-[30%] ${answerIcon ? 'bg-[#3a199d]' : 'bg-gray-400'} hover:${answerIcon ? 'bg-[#503b8f]' : 'bg-gray-400'} hover:transition-all hover:duration-1000 hover:cursor-pointer rounded-full px-24 py-3 font-semibold`} onClick={showNextQuestion} disabled={answerIcon ? false : true}> { index === 9 ? 'Check Your Results' : 'Next Question' }  </button>
-
+      <input type='submit' className={`mt-3 mb-5 mx-[30%] ${answerIcon ? 'bg-[#3a199d]' : 'bg-gray-400'} hover:${answerIcon ? 'bg-[#503b8f]' : 'bg-gray-400'} hover:transition-all hover:duration-1000 hover:cursor-pointer rounded-full px-24 py-3 font-semibold`} onClick={showNextQuestion} disabled={answerIcon ? false : true} value={ index === 9 ? 'Check Your Results' : 'Next Question' } />
     </div>
-
   )
 }
