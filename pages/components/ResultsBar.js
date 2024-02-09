@@ -11,16 +11,7 @@ export default function ResultsBar() {
   const divRef = useRef(null)
   const router = useRouter()
   const correctAnsCount = router.query.correctAnsCount
-  const correctAns = JSON.parse(localStorage.getItem('correctAns'))
-  const wrongAns = JSON.parse(localStorage.getItem('wrongAns'))
-  const questions = JSON.parse(localStorage.getItem('questionsArray'))
-  const guessed = JSON.parse(localStorage.getItem('guessed'))
-  
-  console.log(questions)
-  console.log(correctAns)
-  console.log(wrongAns)
-  console.log(guessed)
-
+ 
   return (
     <div className='flex flex-col items-center'>
       <div ref={divRef} className='bg-[#4a4fad] w-[50%] h-48 flex gap-4 mt-10'>

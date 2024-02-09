@@ -6,9 +6,8 @@ import { useRouter } from 'next/router'
 export default function Quiz() {
 
     const divRef = useRef(null)
-    const [correctAns, setCorrectAns] = useState([])
+    const [answersMap, setAnswersMap] = useState(new Map())
     const [questionsArray, setQuestionsArray] = useState([])
-    const [wrongAns, setWrongAns] = useState([])
     const [guessed, setGuessed] = useState([])     // Answers that user provided
     const [correctAnsCount, setCorrectAnsCount] = useState(0)
     const [divHeight, setDivHeight] = useState(0)
@@ -82,8 +81,8 @@ export default function Quiz() {
           pathname: '/components/ResultsBar',
           query: { correctAnsCount }
         });
-        localStorage.setItem('correctAns', JSON.stringify(correctAns))
-        localStorage.setItem('wrongAns', JSON.stringify(wrongAns))
+        console.log('answersMap:', Array.from(answersMap.entries()));
+        localStorage.setItem('answersMap', JSON.stringify(Array.from(answersMap.entries())))
         localStorage.setItem('questionsArray', JSON.stringify(questionsArray))
         localStorage.setItem('guessed', JSON.stringify(guessed))
       } else {
@@ -97,12 +96,26 @@ export default function Quiz() {
     const handleClick = (e) => {
       if(e.target.value === questions[index].correct_answer) {
         setCorrectAnsCount(correctAnsCount => correctAnsCount + 1)
-        setCorrectAns([...correctAns, questions[index].correct_answer])
-        setGuessed([...guessed, true])
+        // setCorrectAns([...correctAns, questions[index].correct_answer])
+        // answersMap.set(index, {correctAns: questions[index].correct_answer})
+        setAnswersMap(prevMap => {
+            const newMap = new Map(prevMap);
+            answersMap.set(index, {correctAns: questions[index].correct_answer})
+            return newMap;
+        }
+          // answersMap.set(index, {correctAns: questions[index].correct_answer})
+        )
+        setGuessed([...guessed, 1])
       } else {
-        setWrongAns([...wrongAns, e.target.value])
-        setCorrectAns([...correctAns, questions[index].correct_answer])
-        setGuessed([...guessed, false])
+        // setWrongAns([...wrongAns, e.target.value])
+        // setCorrectAns([...correctAns, questions[index].correct_answer])
+        setAnswersMap(prevMap => {
+          const newMap = new Map(prevMap);
+          answersMap.set(index, {correctAns: questions[index].correct_answer, wrongAns: e.target.value})
+          return newMap;
+        })
+        
+        setGuessed([...guessed, 0])
       }
 
       setQuestionsArray([...questionsArray, questions[index].question])
