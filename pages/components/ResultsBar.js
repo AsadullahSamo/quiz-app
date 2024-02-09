@@ -1,6 +1,7 @@
 import React from 'react'
 import { useRef, useState } from 'react'
 import { useRouter } from 'next/router'
+import StickyNav from './StickyNav'
 // import styles from './ResultsBar.module.css'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
@@ -44,6 +45,7 @@ export default function ResultsBar() {
       </div>
 
         <Answers />
+        <StickyNav />
     </div>
 
   )
