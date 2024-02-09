@@ -2,11 +2,13 @@ import React, { useEffect, useState, useRef } from 'react'
 import styles from '../components/Fonts.module.css'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 export default function Quiz() {
 
     const divRef = useRef(null)
-    const [answersMap, setAnswersMap] = useState(new Map())
+    // const [answersMap, setAnswersMap] = useState(new Map())
+    const [answersArray, setAnswersArray] = useState([])
     const [questionsArray, setQuestionsArray] = useState([])
     const [guessed, setGuessed] = useState([])     // Answers that user provided
     const [correctAnsCount, setCorrectAnsCount] = useState(0)
@@ -23,10 +25,12 @@ export default function Quiz() {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple'
-          );
+            'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple&encode=base64'
+          )
+
           const data = await response.json();
           setQuestions(data.results);
+          console.log('Questions:', data.results)
           let optionsArray = [...data.results[index].incorrect_answers, data.results[index].correct_answer];
           setRandArray(fyShuffle(optionsArray));
         } catch (error) {
@@ -69,11 +73,8 @@ export default function Quiz() {
         array[x] = array[y];
         array[y] = temp;
       }
-
-      // console.log(array)
       return array;
-
-    }
+    } // end of fyShuffle function
 
     const showNextQuestion = () => {
       if(index === 9) {
@@ -81,8 +82,9 @@ export default function Quiz() {
           pathname: '/components/ResultsBar',
           query: { correctAnsCount }
         });
-        console.log('answersMap:', Array.from(answersMap.entries()));
-        localStorage.setItem('answersMap', JSON.stringify(Array.from(answersMap.entries())))
+        // localStorage.setItem('answersMap', JSON.stringify(Array.from(answersMap.entries())))
+        console.log('AnswersArray:', answersArray)
+        localStorage.setItem('answersArray', JSON.stringify(answersArray))
         localStorage.setItem('questionsArray', JSON.stringify(questionsArray))
         localStorage.setItem('guessed', JSON.stringify(guessed))
       } else {
@@ -94,27 +96,26 @@ export default function Quiz() {
     } // end of showNextQuestion
 
     const handleClick = (e) => {
-      if(e.target.value === questions[index].correct_answer) {
+      if(e.target.value === atob(questions[index].correct_answer)) {
         setCorrectAnsCount(correctAnsCount => correctAnsCount + 1)
         // setCorrectAns([...correctAns, questions[index].correct_answer])
         // answersMap.set(index, {correctAns: questions[index].correct_answer})
-        setAnswersMap(prevMap => {
-            const newMap = new Map(prevMap);
-            answersMap.set(index, {correctAns: questions[index].correct_answer})
-            return newMap;
-        }
-          // answersMap.set(index, {correctAns: questions[index].correct_answer})
-        )
+        // setAnswersMap(prevMap => {
+        //     const newMap = new Map(prevMap);
+        //     answersMap.set(index, {correctAns: questions[index].correct_answer})
+        //     return newMap;
+        // })
+        setAnswersArray([...answersArray, {correctAns: questions[index].correct_answer}])
         setGuessed([...guessed, 1])
       } else {
         // setWrongAns([...wrongAns, e.target.value])
         // setCorrectAns([...correctAns, questions[index].correct_answer])
-        setAnswersMap(prevMap => {
-          const newMap = new Map(prevMap);
-          answersMap.set(index, {correctAns: questions[index].correct_answer, wrongAns: e.target.value})
-          return newMap;
-        })
-        
+        // setAnswersMap(prevMap => {
+        //   const newMap = new Map(prevMap);
+        //   answersMap.set(index, {correctAns: questions[index].correct_answer, wrongAns: e.target.value})
+        //   return newMap;
+        // })
+        setAnswersArray([...answersArray, {correctAns: questions[index].correct_answer, wrongAns: e.target.value}])
         setGuessed([...guessed, 0])
       }
 
@@ -125,18 +126,24 @@ export default function Quiz() {
     }
 
   return (
-  
+    <>
+    <Head>
+      <title>Quiz</title>
+      <meta name="description" content="Quiz" />
+      <meta charSet='utf-8'/>
+    </Head>
+    
     <div ref={divRef} className={`bg-[#4a4fad] w-[50%] h-[${divHeight}px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}>
       <p className={`${styles.nunitoSemiBold} px-10 pt-10`}> QUESTION {index + 1} of 10 </p>
       {questions && questions.length > 0 && (
-        <p className={`px-10 pt-5 mb-12 text-xl ${styles.nunitoBold} w-[90%]`} key={0}> {questions[index].question} </p>
+        <p className={`px-10 pt-5 mb-12 text-xl ${styles.nunitoBold} w-[90%]`} key={0}> {atob(questions[index].question)} </p>
       )}
 
       {questions && questions.length > 0 && (
         randArray.map((option, mapIndex) => {
           return (
             <div className='flex' key={mapIndex}>
-              <input onClick={handleClick} className={`text-left hover:cursor-pointer transition-all duration-500 hover:bg-[#989ce3] ${option===questions[index].correct_answer ? correctAnswerColor : wrongAnswerColor} text-[17px] border-solid border-white border text-white font-semibold px-5 py-4 mx-10 mb-5 rounded-md w-[90%]`} type='submit' value={`${option}`}/>
+              <input onClick={handleClick} className={`text-left hover:cursor-pointer transition-all duration-500 hover:bg-[#989ce3] ${option===questions[index].correct_answer ? correctAnswerColor : wrongAnswerColor} text-[17px] border-solid border-white border text-white font-semibold px-5 py-4 mx-10 mb-5 rounded-md w-[90%]`} type='submit' value={`${atob(option)}`}/>
               {
                 answerIcon && (
                 <Image
@@ -152,5 +159,6 @@ export default function Quiz() {
 
       <input type='submit' className={`mt-3 mb-5 mx-[30%] ${answerIcon ? 'bg-[#3a199d]' : 'bg-gray-400'} hover:${answerIcon ? 'bg-[#503b8f]' : 'bg-gray-400'} hover:transition-all hover:duration-1000 hover:cursor-pointer rounded-full px-24 py-3 font-semibold`} onClick={showNextQuestion} disabled={answerIcon ? false : true} value={ index === 9 ? 'Check Your Results' : 'Next Question' } />
     </div>
+    </>
   )
 }
