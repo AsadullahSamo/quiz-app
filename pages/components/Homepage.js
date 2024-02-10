@@ -15,7 +15,7 @@ export default function Homepage() {
         <meta charSet="utf-8" />
       </Head>
 
-      <main className='flex flex-col justify-center items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+      <main className='flex flex-col justify-center items-center min-h-screen'>
         <Image
           src="/assets/icons/logo.svg"
           alt="Picture of the author"
@@ -27,6 +27,8 @@ export default function Homepage() {
         <p className={`text-1xl mt-5 ${styles.nunitoSemiBold}`}> Challenge yourself with randomly generated quizzes </p>
         <Link href="/components/Quiz" className='mt-5 bg-gradient-to-br hover:bg-gradient-to-tl hover:transition-all hover:duration-500 hover:cursor-pointer from-[#733de1] to-[#228fe0] rounded-full px-24 py-3 font-semibold'> Let's Get Started </Link>
       </main>
+    
+
     </>
   )
 }
