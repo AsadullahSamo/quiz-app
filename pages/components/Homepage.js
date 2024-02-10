@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function Homepage() {
   return (
     
-    <div className='flex flex-col justify-center items-center'>
+    <div className='flex flex-col justify-center items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
       <Image
         src="/assets/icons/logo.svg"
         alt="Picture of the author"

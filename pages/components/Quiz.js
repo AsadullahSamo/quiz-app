@@ -30,7 +30,7 @@ export default function Quiz() {
 
           const data = await response.json();
           setQuestions(data.results);
-          console.log('Questions:', data.results)
+          console.log('Questions:', data.results.map(result => atob(result.question)));
           let optionsArray = [...data.results[index].incorrect_answers, data.results[index].correct_answer];
           setRandArray(fyShuffle(optionsArray));
         } catch (error) {
@@ -133,7 +133,7 @@ export default function Quiz() {
       <meta charSet='utf-8'/>
     </Head>
     
-    <div ref={divRef} className={`bg-[#4a4fad] w-[50%] h-[${divHeight}px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}>
+    <div ref={divRef} className={`sm:w-[80%] md:w-[80%] bg-[#4a4fad] lg:w-[50%] h-[${divHeight}px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}>
       <p className={`${styles.nunitoSemiBold} px-10 pt-10`}> QUESTION {index + 1} of 10 </p>
       {questions && questions.length > 0 && (
         <p className={`px-10 pt-5 mb-12 text-xl ${styles.nunitoBold} w-[90%]`} key={0}> {atob(questions[index].question)} </p>
@@ -157,7 +157,9 @@ export default function Quiz() {
         })
       )}
 
-      <input type='submit' className={`mt-3 mb-5 mx-[30%] ${answerIcon ? 'bg-[#3a199d]' : 'bg-gray-400'} hover:${answerIcon ? 'bg-[#503b8f]' : 'bg-gray-400'} hover:transition-all hover:duration-1000 hover:cursor-pointer rounded-full px-24 py-3 font-semibold`} onClick={showNextQuestion} disabled={answerIcon ? false : true} value={ index === 9 ? 'Check Your Results' : 'Next Question' } />
+      <div className='flex justify-center'>
+        <input type='submit' className={`mt-3 mb-5 ${answerIcon ? 'bg-[#3a199d]' : 'bg-gray-400'} hover:${answerIcon ? 'bg-[#503b8f]' : 'bg-gray-400'} hover:transition-all hover:duration-1000 hover:cursor-pointer rounded-full px-24 py-3 font-semibold`} onClick={showNextQuestion} disabled={answerIcon ? false : true} value={ index === 9 ? 'Check Your Results' : 'Next Question' } />
+      </div>
     </div>
     </>
   )

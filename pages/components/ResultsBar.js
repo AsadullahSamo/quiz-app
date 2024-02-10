@@ -15,7 +15,7 @@ export default function ResultsBar() {
  
   return (
     <div className='flex flex-col items-center'>
-      <div ref={divRef} className='bg-[#4a4fad] w-[50%] h-48 flex gap-4 mt-10'>
+      <div ref={divRef} className='bg-[#4a4fad] sm:w-[80%] md:w-[80%] lg:w-[50%] h-48 flex gap-4 mt-10'>
         <div style={{ width: 150, height: 150, color: 'red', margin: '25px'}}>
 
             <CircularProgressbar

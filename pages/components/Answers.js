@@ -46,7 +46,7 @@ export default function Answers({ answerIcon }) {
 
   return (
 
-    <section ref={sectionRef} className={`mt-10 mb-32 bg-[#4a4fad] w-[50%] h-[${sectionHeight}]`}>
+    <section ref={sectionRef} className={`mt-10 mb-32 bg-[#4a4fad] sm:w-[80%] md:w-[80%] lg:w-[50%] h-[${sectionHeight}]`}>
        {/* <p className={`ml-10 mt-5 ${styles.nunitoBold} text-xl`}> Your Answers </p>
          <div className="relative top-[34px] left-7 w-6 h-6 rounded-full inline-flex items-center justify-center bg-[#4a4fad] text-white font-bold"> 1 </div> 
          <input className={`text-left text-black text-[18px] font-bold bg-white pr-5 pl-10 pt-2 pb-12 mx-5 mb-5 rounded-md w-[95%]`} type='submit' value={`Which player scored the fastest hat-trick in the premier league`}/>
@@ -66,9 +66,9 @@ export default function Answers({ answerIcon }) {
                 <div ref={divRef} className={`bg-white rounded-md w-[95%] pl-10 pt-2 mx-5 mb-5 h-${divHeight}`}>
 
                   <div className='flex gap-10'>
-                    <p className={`text-left text-black text-[18px] font-bold w-[90%]`}> {atob(question)} </p>
+                    <p className={`text-left text-black text-[18px] font-bold w-[85%]`}> {atob(question)} </p>
                     <Image
-                      className='float-right absolute right-[28%]' src={guessed[index] === 1 ? '/assets/icons/correct-answer-icon.svg' : '/assets/icons/wrong-answer-icon.svg'} alt="Answer icon whether correct or wrong" width={30} height={30}
+                      className='float-right absolute sm:right-[15%] md:right-[15%] lg:right-[28%]' src={guessed[index] === 1 ? '/assets/icons/correct-answer-icon.svg' : '/assets/icons/wrong-answer-icon.svg'} alt="Answer icon whether correct or wrong" width={30} height={30}
                     /> 
                   </div>
                 <div className='flex gap-10'>
