@@ -3,12 +3,12 @@ import styles from '../components/Fonts.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-
+import fyShuffle from '@/utils/fyShuffle';
 export default function Quiz() {
   const divRef = useRef(null);
-  const [answersArray, setAnswersArray] = useState([]);
-  const [questionsArray, setQuestionsArray] = useState([]);
-  const [guessed, setGuessed] = useState([]); // Answers that user provided
+  const [answersArray, setAnswersArray] = useState([])
+  const [questionsArray, setQuestionsArray] = useState([])
+  const [guessed, setGuessed] = useState([])
   const [correctAnsCount, setCorrectAnsCount] = useState(0);
   const [divHeight, setDivHeight] = useState(0);
   const [randArray, setRandArray] = useState([]);
@@ -36,12 +36,10 @@ export default function Quiz() {
     };
 
     setDivHeight(divRef.current.getBoundingClientRect().height);
-    // Introduce a delay (e.g., 1 second) before making the API request
     const delay = setTimeout(() => {
       fetchData();
     }, 1000);
 
-    // Clean up the timeout to avoid memory leaks
     return () => clearTimeout(delay);
   }, []);
 
@@ -51,18 +49,6 @@ export default function Quiz() {
       setRandArray(fyShuffle(optionsArray));
     }
   }, [index, questions]);
-
-  function fyShuffle(arr) {
-    let array = [...arr];
-    let len = array.length;
-    for (let x = len - 1; x >= 0; x--) {
-      let y = Math.floor(Math.random() * x);
-      let temp = array[x];
-      array[x] = array[y];
-      array[y] = temp;
-    }
-    return array;
-  } // end of fyShuffle function
 
   const showNextQuestion = () => {
     if (index === 9) {

@@ -6,14 +6,12 @@ import Head from 'next/head';
 export default function Answers({ answerIcon }) {
   const sectionRef = useRef(null);
   const divRef = useRef(null);
+  const [sectionHeight, setSectionHeight] = useState(0);
   const [divHeight, setDivHeight] = useState(0);
   const [answersArray, setAnswersArray] = useState([]);
-  const [sectionHeight, setSectionHeight] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [guessed, setGuessed] = useState([]);
-
   useEffect(() => {
-    // Check if localStorage is available before accessing it
     if (typeof window !== 'undefined') {
       const storedAnswersArray = JSON.parse(localStorage.getItem('answersArray'));
       const storedQuestions = JSON.parse(localStorage.getItem('questionsArray'));

@@ -3,7 +3,6 @@ import Homepage from './components/Homepage'
 export default function Home() {
 
   return (
-    
     <>
     <bds></bds> 
     <Head>
@@ -17,7 +16,6 @@ export default function Home() {
     <main className={`min-h-screen bg-[#171a3c] flex flex-col justify-center items-center`}>
        <Homepage />      
     </main>
-
     </>
   );
 }

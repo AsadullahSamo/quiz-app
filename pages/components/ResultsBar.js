@@ -1,19 +1,18 @@
-import React from 'react'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import StickyNav from './StickyNav'
-// import styles from './ResultsBar.module.css'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import fonts from '../components/Fonts.module.css'
 import Answers from './Answers'
+
 export default function ResultsBar() {
   
   const divRef = useRef(null)
   const router = useRouter()
   const correctAnsCount = router.query.correctAnsCount
- 
+
   return (
     <>
       <Head>
@@ -31,22 +30,21 @@ export default function ResultsBar() {
               value={correctAnsCount * 10}
               text={`${correctAnsCount}/10`}
               styles={{
-                  path: {
-                    stroke: `#8394ed`,
-                  },
-                  
-                  trail: {
-                    stroke: '#3b179b',
-                  },
+                path: {
+                  stroke: `#8394ed`,
+                },
+                
+                trail: {
+                  stroke: '#3b179b',
+                },
 
-                  text: {
-                    fill: '#fff',
-                    fontSize: '18px',
-                  },
-                  // Customize background - only used when the `background` prop is true
-                  background: {
+                text: {
+                  fill: '#fff',
+                  fontSize: '18px',
+                },
+                background: {
                   fill: 'green',
-                  },
+                },
               }}/>
           </div>
 

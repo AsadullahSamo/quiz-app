@@ -1,4 +1,5 @@
 import React from 'react'
+import logo from '../../public/assets/icons/logo.svg'
 import Image from "next/image";
 import styles from './Homepage.module.css'
 import Link from 'next/link';
@@ -17,7 +18,7 @@ export default function Homepage() {
 
       <main className='flex flex-col justify-center items-center min-h-screen'>
         <Image
-          src="/assets/icons/logo.svg"
+          src={logo}
           alt="Picture of the author"
           width={300}
           height={300}
