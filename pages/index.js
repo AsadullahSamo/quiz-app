@@ -1,25 +1,22 @@
+import Head from 'next/head';
 import Homepage from './components/Homepage'
-import Quiz from './components/Quiz';
-import ResultsBar from './components/ResultsBar';
-import Answers from './components/Answers';
-// import { useState } from 'react';
 export default function Home() {
-
-  // const [index, setIndex] = useState(0)
 
   return (
     
+    <>
+    <Head>
+      <title> Homepage </title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <meta name="author" content="Asadullah Samo" />
+      <meta name="description" content="This page is homepage and entry point of Quiz project" />
+      <meta charSet="utf-8" />
+    </Head>
+
     <main className={`min-h-screen bg-[#171a3c] flex flex-col justify-center items-center`}>
        <Homepage />      
-       {/* <Quiz /> */}
-       {/* <ResultsBar correctAns={8}/> */}
-       {/* <Answers /> */}
-       {/* <button className={`mt-3 mb-5 mx-[30%] ${answerIcon ? 'bg-[#3a199d]' : 'bg-gray-400'} hover:${answerIcon ? 'bg-[#503b8f]' : 'bg-gray-400'} hover:transition-all hover:duration-1000 hover:cursor-pointer rounded-full px-24 py-3 font-semibold`} onClick={showNextQuestion} disabled={answerIcon ? false : true}> { index === 9 ? 'Check Your Results' : 'Next Question' }  </button> */}
-     </main>
+    </main>
 
-    // <>
-    //   <Quiz />
-    // </>
-
+    </>
   );
 }
