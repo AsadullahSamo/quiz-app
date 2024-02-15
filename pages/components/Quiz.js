@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import fyShuffle from '@/utils/fyShuffle';
-export default function Quiz() {
+import server from '@/config/server';
+export default function Quiz( {data} ) {
   const divRef = useRef(null);
   const [answersArray, setAnswersArray] = useState([])
   const [questionsArray, setQuestionsArray] = useState([])
@@ -21,19 +22,21 @@ export default function Quiz() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch(
-          'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple&encode=base64'
-        );
+      // try {
+      //   const response = await fetch(
+      //     'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple&encode=base64'
+      //   );
 
-        const data = await response.json();
+      // const data = await response.json();
+
         setQuestions(data.results);
         let optionsArray = [...data.results[index].incorrect_answers, data.results[index].correct_answer];
         setRandArray(fyShuffle(optionsArray));
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+      } 
+      // catch (error) {
+      //   console.error('Error fetching data:', error);
+      // }
+    // };
 
     setDivHeight(divRef.current.getBoundingClientRect().height);
     const delay = setTimeout(() => {
@@ -143,4 +146,15 @@ export default function Quiz() {
       </section>
     </>
   );
+}
+
+
+export async function getStaticProps() {
+  const res = await fetch(`${server}/api/hello`);
+  const data = await res.json();
+  return {
+    props: {
+      data,
+    },
+  };
 }
