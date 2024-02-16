@@ -28,10 +28,11 @@ export default function Quiz( {data} ) {
       //   );
 
       // const data = await response.json();
-
-        setQuestions(data.results);
-        let optionsArray = [...data.results[index].incorrect_answers, data.results[index].correct_answer];
-        setRandArray(fyShuffle(optionsArray));
+        if (data.results && data.results.length > 0) {
+          setQuestions(data.results);
+          let optionsArray = [...data.results[index].incorrect_answers, data.results[index].correct_answer];
+          setRandArray(fyShuffle(optionsArray));
+        }
       } 
       // catch (error) {
       //   console.error('Error fetching data:', error);
