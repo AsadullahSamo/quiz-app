@@ -1,4 +1,4 @@
-export default function fyShuffle(arr) {
+export default function shuffle(arr) {
     let array = [...arr];
     let len = array.length;
     for (let x = len - 1; x >= 0; x--) {

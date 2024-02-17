@@ -3,7 +3,7 @@ import styles from '../components/Fonts.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import fyShuffle from '@/utils/fyShuffle';
+import shuffle from '@/utils/shuffle';
 import server from '@/config/server';
 export default function Quiz( {data} ) {
   const divRef = useRef(null);
@@ -31,7 +31,7 @@ export default function Quiz( {data} ) {
         if (data.results && data.results.length > 0) {
           setQuestions(data.results);
           let optionsArray = [...data.results[index].incorrect_answers, data.results[index].correct_answer];
-          setRandArray(fyShuffle(optionsArray));
+          setRandArray(shuffle(optionsArray));
         }
       } 
       // catch (error) {
@@ -50,7 +50,7 @@ export default function Quiz( {data} ) {
   useEffect(() => {
     if (questions && questions.length > 0) {
       let optionsArray = [...questions[index].incorrect_answers, questions[index].correct_answer];
-      setRandArray(fyShuffle(optionsArray));
+      setRandArray(shuffle(optionsArray));
     }
   }, [index, questions]);
 
@@ -151,7 +151,7 @@ export default function Quiz( {data} ) {
 
 
 export async function getStaticProps() {
-  const res = await fetch(`${server}/api/data`);
+  const res = await fetch(`${server}/api/apiData`);
   const data = await res.json();
   return {
     props: {

@@ -1,9 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 export default async function handler(req, res) {
-  //   fetch('https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple&encode=base64')
-  //   .then(response => response.json())
-  //   .then(data => data)
   try {
     const response = await fetch(
       'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple&encode=base64'
