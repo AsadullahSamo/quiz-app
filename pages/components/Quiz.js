@@ -151,7 +151,7 @@ export default function Quiz( {data} ) {
 
 
 export async function getStaticProps() {
-  const res = await fetch(`${server}/api/hello`);
+  const res = await fetch(`${server}/api/data`);
   const data = await res.json();
   return {
     props: {
