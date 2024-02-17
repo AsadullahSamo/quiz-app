@@ -124,10 +124,9 @@ export default function Quiz( {data} ) {
                         answerIcon && (
                         <Image
                           className='float-right -ml-24 mb-5' src={`${option===questions[index].correct_answer ? '/assets/icons/correct-answer-icon.svg' : '/assets/icons/wrong-answer-icon.svg' }`} alt="Answer icon whether correct or wrong" width={30} height={30}
-                        /> 
+                        />
                         )
                       }
-                      
                     </div>
                   )
                 })
@@ -150,8 +149,8 @@ export default function Quiz( {data} ) {
 }
 
 
-export async function getStaticProps() {
-  const res = await fetch(`${server}/api/hello`);
+export async function getServerSideProps() {
+  const res = await fetch(`${server}/api/apiData`);
   const data = await res.json();
   return {
     props: {
