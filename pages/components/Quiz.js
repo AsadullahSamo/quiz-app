@@ -103,13 +103,13 @@ export default function Quiz( {data} ) {
 
       <section
         ref={divRef}
-        className={`sm:w-[80%] md:w-[80%] bg-[#4a4fad] lg:w-[50%] h-[${divHeight}px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
+        className={`w-[95%] bg-[#4a4fad] lg:w-[50%] h-[${divHeight}px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
       >
         <header>
-          <p className={`${styles.nunitoSemiBold} px-10 pt-10`}> QUESTION {index + 1} of 10 </p>
+          <p className={`${styles.nunitoSemiBold} px-5 md:px-10 pt-10`}> QUESTION {index + 1} of 10 </p>
         </header>
         {questions && questions.length > 0 && (
-          <article className={`px-10 pt-5 mb-12 text-xl ${styles.nunitoBold} w-[90%]`} key={0}>
+          <article className={`px-5 md:px-10 pt-5 mb-12 text-[13px] md:text-xl ${styles.nunitoBold} w-[100%]`} key={0}>
             {' '}
             {atob(questions[index].question)}{' '}
           </article>
@@ -119,11 +119,11 @@ export default function Quiz( {data} ) {
                 randArray.map((option, mapIndex) => {
                   return (
                     <div className='flex' key={mapIndex}>
-                      <input onClick={handleClick} className={`text-left hover:cursor-pointer transition-all duration-500 hover:bg-[#989ce3] ${option===questions[index].correct_answer ? correctAnswerColor : wrongAnswerColor} text-[17px] border-solid border-white border text-white font-semibold px-5 py-4 mx-10 mb-5 rounded-md w-[90%]`} type='submit' value={`${atob(option)}`}/>
+                      <input onClick={handleClick} className={`text-left hover:cursor-pointer transition-all duration-500 hover:bg-[#989ce3] ${option===questions[index].correct_answer ? correctAnswerColor : wrongAnswerColor} text-[17px] border-solid border-white border text-white font-semibold px-5 py-4 mx-2 md:mx-10 mb-5 rounded-md w-[95%] md:w-[90%]`} type='submit' value={`${atob(option)}`}/>
                       {
                         answerIcon && (
                         <Image
-                          className='float-right -ml-24 mb-5' src={`${option===questions[index].correct_answer ? '/assets/icons/correct-answer-icon.svg' : '/assets/icons/wrong-answer-icon.svg' }`} alt="Answer icon whether correct or wrong" width={30} height={30}
+                          className='float-right -ml-12 md:-ml-24 mb-5' src={`${option===questions[index].correct_answer ? '/assets/icons/correct-answer-icon.svg' : '/assets/icons/wrong-answer-icon.svg' }`} alt="Answer icon whether correct or wrong" width={30} height={30}
                         />
                         )
                       }

@@ -39,18 +39,18 @@ export default function Answers({ answerIcon }) {
 
       <section
         ref={sectionRef}
-        className={`mt-10 mb-32 bg-[#4a4fad] sm:w-[80%] md:w-[80%] lg:w-[50%] h-[${sectionHeight}]`}
+        className={`mt-10 mb-32 bg-[#4a4fad] w-[100%] md:w-[50%] h-[${sectionHeight}]`}
       >
         {questions.map((question, index) => (
           <article key={index} className="mb-5">
-            <div className="relative top-[34px] left-7 w-6 h-6 rounded-full inline-flex items-center justify-center bg-[#4a4fad] text-white font-bold">
+            <div className="relative top-[34px] left-3 md:left-7 w-6 h-6 rounded-full inline-flex items-center justify-center bg-[#4a4fad] text-white font-bold">
               {index + 1}
             </div>
-            <div ref={divRef} className={`bg-white rounded-md w-[95%] pl-10 pt-2 mx-5 mb-5 h-${divHeight}`}>
+            <div ref={divRef} className={`bg-white rounded-md w-[95%] pl-10 pt-2 mx-2 md:mx-5 mb-5 h-${divHeight}`}>
               <header className="flex gap-10">
                 <p className={`text-left text-black text-[18px] font-bold w-[85%]`}> {atob(question) } </p>
                 <Image
-                  className='float-right absolute sm:right-[15%] md:right-[15%] lg:right-[28%]'
+                  className='float-right absolute right-[5%] lg:right-[28%]'
                   src={guessed[index] === 1 ? '/assets/icons/correct-answer-icon.svg' : '/assets/icons/wrong-answer-icon.svg'}
                   alt="Answer icon whether correct or wrong"
                   width={30}
