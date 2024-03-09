@@ -23,8 +23,8 @@ export default function ResultsBar() {
       </Head>
 
       <main className='flex flex-col items-center'>
-        <div ref={divRef} className='bg-[#4a4fad] sm:w-[80%] md:w-[80%] lg:w-[50%] h-48 flex gap-4 mt-10'>
-          <div style={{ width: 150, height: 150, color: 'red', margin: '25px'}}>
+        <div ref={divRef} className='bg-[#4a4fad] mr-[3.5rem] md:mr-0 w-[80%] md:w-[50%] h-36 md:h-48 flex gap-1 md:gap-4 mt-10'>
+          <div className='m-[25px] w-[250px] md:w-[150px] h-[250px] md:h-[150px]'>
 
               <CircularProgressbar
               value={correctAnsCount * 10}
@@ -48,7 +48,7 @@ export default function ResultsBar() {
               }}/>
           </div>
 
-          <p className={`${fonts.nunitoBold} mt-10 text-xl w-48`}> You answered {correctAnsCount}/10 questions correctly!</p>
+          <p className={`${fonts.nunitoBold} mx-0 md:mx-10  mt-10 text-[17px] md:text-xl w-96 md:w-56`}> You answered {correctAnsCount}/10 questions correctly!</p>
         </div>
 
           <Answers />
