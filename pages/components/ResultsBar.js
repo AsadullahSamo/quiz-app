@@ -23,9 +23,8 @@ export default function ResultsBar() {
       </Head>
 
       <main className='flex flex-col items-center'>
-        <div ref={divRef} className='bg-[#4a4fad] mr-[3.5rem] md:mr-0 w-[80%] md:w-[50%] h-36 md:h-48 flex gap-1 md:gap-4 mt-10'>
-          <div className='m-[25px] w-[250px] md:w-[150px] h-[250px] md:h-[150px]'>
-
+        <div ref={divRef} className='bg-[#4a4fad] mx-auto  w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] h-36 md:h-48 flex gap-1 md:gap-4 mt-10'>
+          <div className='m-[25px] w-[110px] md:w-[150px] h-[250px] md:h-[150px]'>
               <CircularProgressbar
               value={correctAnsCount * 10}
               text={`${correctAnsCount}/10`}

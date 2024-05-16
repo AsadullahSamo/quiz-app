@@ -39,7 +39,7 @@ export default function Answers({ answerIcon }) {
 
       <section
         ref={sectionRef}
-        className={`mt-10 mb-32 bg-[#4a4fad] w-[100%] md:w-[50%] h-[${sectionHeight}]`}
+        className={`mt-10 mb-32 bg-[#4a4fad] w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] h-[${sectionHeight}]`}
       >
         {questions.map((question, index) => (
           <article key={index} className="mb-5">
@@ -50,7 +50,7 @@ export default function Answers({ answerIcon }) {
               <header className="flex gap-10">
                 <p className={`text-left text-black text-[18px] font-bold w-[85%]`}> {atob(question) } </p>
                 <Image
-                  className='float-right absolute right-[5%] lg:right-[28%]'
+                  className='float-right absolute right-[10%] md:right-[13%] lg:right-[18%] xl:right-[22.5%] 2xl:right-[27%]'
                   src={guessed[index] === 1 ? '/assets/icons/correct-answer-icon.svg' : '/assets/icons/wrong-answer-icon.svg'}
                   alt="Answer icon whether correct or wrong"
                   width={30}
