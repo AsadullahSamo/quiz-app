@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
-import styles from '../components/Fonts.module.css';
+import fonts from '../../styles/Fonts.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import shuffle from '@/utils/shuffle';
-import server from '@/config/server';
-export default function Quiz( {data} ) {
+
+export default function Quiz( ) {
   const divRef = useRef(null);
   const [answersArray, setAnswersArray] = useState([])
   const [questionsArray, setQuestionsArray] = useState([])
@@ -22,22 +22,15 @@ export default function Quiz( {data} ) {
 
   useEffect(() => {
     const fetchData = async () => {
-      // try {
-      //   const response = await fetch(
-      //     'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple&encode=base64'
-      //   );
-
-      // const data = await response.json();
+      const category = JSON.parse(localStorage.getItem('category'))
+        const res = await fetch(`https://opentdb.com/api.php?amount=10&category=${category}&difficulty=medium&type=multiple&encode=base64`);
+        const data = await res.json();
         if (data.results && data.results.length > 0) {
           setQuestions(data.results);
           let optionsArray = [...data.results[index].incorrect_answers, data.results[index].correct_answer];
           setRandArray(shuffle(optionsArray));
         }
       } 
-      // catch (error) {
-      //   console.error('Error fetching data:', error);
-      // }
-    // };
 
     setDivHeight(divRef.current.getBoundingClientRect().height);
     const delay = setTimeout(() => {
@@ -106,10 +99,10 @@ export default function Quiz( {data} ) {
         className={`w-[95%] bg-[#4a4fad] lg:w-[50%] h-[${divHeight}px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
       >
         <header>
-          <p className={`${styles.nunitoSemiBold} px-5 md:px-10 pt-10`}> QUESTION {index + 1} of 10 </p>
+          <p className={`${fonts.nunitoSemiBold} px-5 md:px-10 pt-10`}> QUESTION {index + 1} of 10 </p>
         </header>
         {questions && questions.length > 0 && (
-          <article className={`px-5 md:px-10 pt-5 mb-12 text-[13px] md:text-xl ${styles.nunitoBold} w-[100%]`} key={0}>
+          <article className={`px-5 md:px-10 pt-5 mb-12 text-[13px] md:text-xl ${fonts.nunitoBold} w-[100%]`} key={0}>
             {' '}
             {atob(questions[index].question)}{' '}
           </article>
@@ -146,15 +139,4 @@ export default function Quiz( {data} ) {
       </section>
     </>
   );
-}
-
-
-export async function getServerSideProps() {
-  const res = await fetch(`${server}/api/apiData`);
-  const data = await res.json();
-  return {
-    props: {
-      data,
-    },
-  };
 }

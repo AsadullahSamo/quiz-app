@@ -4,7 +4,7 @@ import Head from 'next/head'
 import StickyNav from './StickyNav'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
-import fonts from '../components/Fonts.module.css'
+import fonts from '../../styles/Fonts.module.css'
 import Answers from './Answers'
 
 export default function ResultsBar() {

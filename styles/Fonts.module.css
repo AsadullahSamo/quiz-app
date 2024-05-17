@@ -1,11 +1,11 @@
 @font-face {
     font-family: Nunito-Bold;
-    src: url('../../public/assets/fonts/Nunito-Bold.ttf');
+    src: url('../public/assets/fonts/Nunito-Bold.ttf');
 }
 
 @font-face {
     font-family: Nunito-Semibold;
-    src: url('../../public/assets/fonts/Nunito-SemiBold.ttf');
+    src: url('../public/assets/fonts/Nunito-SemiBold.ttf');
 }
 
 .nunitoBold {

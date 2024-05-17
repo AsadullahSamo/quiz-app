@@ -15,7 +15,7 @@ export default function StickyNav() {
 
       <div className='w-[100%] h-36 md:h-24 bg-white fixed -bottom-4 md:bottom-0 flex justify-center gap-1 md:gap-10 flex-col md:flex-row'>
         <Link href="/components/Homepage" className={`mx-2 md:mx-0 mt-5 h-12 text-center bg-[#3a199d] hover:bg-[#503b8f] hover:transition-all hover:duration-1000 hover:cursor-pointer rounded-full px-8 font-semibold py-3`}> Back to Home Page </Link> 
-        <Link href="/components/Quiz" className={`mx-2 md:mx-0 mt-5 h-12 text-center bg-[#3a199d] hover:bg-[#503b8f] hover:transition-all hover:duration-1000 hover:cursor-pointer rounded-full px-4 md:px-8 font-semibold py-1 md:py-3`}> Start New Quiz </Link> 
+        <Link href="/components/Select" className={`mx-2 md:mx-0 mt-5 h-12 text-center bg-[#3a199d] hover:bg-[#503b8f] hover:transition-all hover:duration-1000 hover:cursor-pointer rounded-full px-4 md:px-8 font-semibold py-1 md:py-3`}> Start New Quiz </Link> 
       </div>
     </>
   )

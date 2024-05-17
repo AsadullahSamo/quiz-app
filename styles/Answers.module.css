@@ -1,0 +1,10 @@
+.inputContainer {
+    max-width: 95%;
+  }
+  
+  .inputContainer input {
+    width: 100%; 
+    max-width: 100%; 
+    font-size: 16px; 
+    box-sizing: border-box;
+  }
