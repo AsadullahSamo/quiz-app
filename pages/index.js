@@ -11,6 +11,7 @@ export default function Home() {
       <meta name="author" content="Asadullah Samo" />
       <meta name="description" content="This page is homepage and entry point of Quiz project" />
       <meta charSet="utf-8" />
+      <link rel='icon' href='/assets/icons/logo.svg'/>
     </Head>
 
     <main className={`min-h-screen bg-[#171a3c] flex flex-col justify-center items-center`}>
