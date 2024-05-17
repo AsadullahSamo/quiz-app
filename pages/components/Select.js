@@ -33,13 +33,14 @@ export default function Select() {
     }
 
   return (
-    <dov className="bg-[#171a3c] w-[31.3%] h-56 flex flex-col gap-5 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <dov className="bg-[#171a3c] w-[80%] md:w-[65%] lg:w-[48%] xl:w-[37%] 2xl:w-[32.5%] h-56 flex flex-col gap-5 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <Autocomplete
             disablePortal
             id="combo-box-demo"
             options={categories}
-            sx={{ width: 500 }}
-            style={{backgroundColor: '#f3f3f3', color: 'white', borderRadius: '5px'}}
+            
+            className='w-[100%] h-12'
+            style={{backgroundColor: '#f5f5f5', borderRadius: '5px'}}
             renderInput={(params) => <TextField {...params} placeholder="Select a category" />}
             onChange={handleChange}
         />
